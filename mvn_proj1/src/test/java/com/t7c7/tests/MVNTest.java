@@ -4,17 +4,28 @@ package com.t7c7.tests;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 public class MVNTest 
 {
 	public WebDriver driver;
 	
+	@Parameters("browser")
 	@Test
-	public void launchBrowser() throws InterruptedException
+	public void launchBrowser(String browser) throws InterruptedException
 	{
-		driver = new ChromeDriver();
+		if(browser.equals("Chrome"))
+			driver = new ChromeDriver();
+		else if(browser.equals("Firefox"))
+			driver = new FirefoxDriver();
+		else if(browser.equals("Edge"))
+			driver = new EdgeDriver();
+		
+		//driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.get("https://opensource-demo.orangehrmlive.com");
 		Thread.sleep(2000);
